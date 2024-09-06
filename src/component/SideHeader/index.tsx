@@ -2,7 +2,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { SideBarContent } from "./sidebarContent";
+import { SideBarContent } from "./SidebarContent";
 
 export const SideHeader = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -13,10 +13,10 @@ export const SideHeader = () => {
       <div
         className={clsx(
           "border bg-gray-200 transition-all duration-300 flex flex-col",
-          isExpanded ? "w-auto" : "w-96"
+          isExpanded ? "w-auto" : "w-56"
         )}
       >
-        <div className="flex items-center justify-center p-4 bg-gray-800 text-white">
+        <div className="flex items-center justify-center p-4 ">
           <h1 className={clsx("text-lg", isExpanded && "hidden")}>Sidebar</h1>
         </div>
         <nav className="flex-1 overflow-y-auto">
@@ -26,7 +26,7 @@ export const SideHeader = () => {
                 key={item.route}
                 className={clsx(
                   "flex items-center space-x-2 last:border-none border-b border-gray-300",
-                  location.pathname === item.route
+                  location.pathName === item.route
                     ? "bg-gray-400 text-white"
                     : "hover:bg-gray-300 active:bg-gray-500",
                   isExpanded && "text-center"
@@ -48,7 +48,7 @@ export const SideHeader = () => {
         onClick={() => setIsExpanded((prev) => !prev)}
         className={clsx(
           "absolute top-1/2 transform -translate-y-1/2 right-0 p-2 text-white bg-gray-800 rounded-full shadow-lg transition-transform duration-300",
-          isExpanded ? "translate-x-full" : "translate-x-[-50%]"
+          isExpanded ? "translate-x-2" : "translate-x-[-50%]"
         )}
         aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
       >
