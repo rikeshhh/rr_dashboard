@@ -5,11 +5,13 @@ import { TopHeader } from "./component/TopHeader";
 
 function App() {
   return (
-    <section className="dashboard flex h-screen">
-      <SideHeader />
-      <div className="w-full flex flex-col container p-4 bg-white">
-        <TopHeader />
-        <Outlet />
+    <section className="dashboard container px-4 py-2 flex flex-col">
+      <TopHeader />
+      <div className="w-full flex  container py-4 bg-white">
+        <SideHeader />
+        <div className="container w-full p-4  overflow-y-auto">
+          <Outlet />
+        </div>
       </div>
     </section>
   );

@@ -1,3 +1,14 @@
+import {
+  FaChartLine,
+  FaCheckCircle,
+  FaClock,
+  FaDollarSign,
+  FaExclamationTriangle,
+  FaSync,
+  FaTasks,
+} from "react-icons/fa";
+import { ActivityCardProps, ReportItemsProps } from "../component/type";
+
 export const CustomerData = [
   {
     id: 1,
@@ -238,5 +249,80 @@ export const CustomerData = [
     "Status ": "PENDING",
     "Payment Method": "cash",
     "Action ": "Ship item",
+  },
+];
+export const ActivityData: ActivityCardProps[] = [
+  {
+    icon: FaTasks,
+    status: "Pending Tasks",
+    itemsCount: 12,
+    progressColor: "blue-500",
+    className: "hover:shadow-lg transition duration-300 ease-in-out",
+    percentage: 100,
+  },
+  {
+    icon: FaCheckCircle,
+    status: "Completed Tasks",
+    itemsCount: 8,
+    progressColor: "green-500",
+    className: "hover:shadow-lg transition duration-300 ease-in-out",
+    percentage: 40,
+  },
+  {
+    icon: FaExclamationTriangle,
+    status: "Overdue Tasks",
+    itemsCount: 3,
+    progressColor: "red-500",
+    className: "hover:shadow-lg transition duration-300 ease-in-out",
+    percentage: 80,
+  },
+  {
+    icon: FaTasks,
+    status: "Tasks for Review",
+    itemsCount: 5,
+    progressColor: "yellow-500",
+    className: "hover:shadow-lg transition duration-300 ease-in-out",
+    percentage: 40,
+  },
+  {
+    icon: FaCheckCircle,
+    status: "Approved Tasks",
+    itemsCount: 6,
+    progressColor: "teal-500",
+    className: "hover:shadow-lg transition duration-300 ease-in-out",
+    percentage: 10,
+  },
+];
+export const ReportData: ReportItemsProps[] = [
+  {
+    icon: FaChartLine,
+    status: "Sales",
+    itemsCount: 1200,
+    percentage: 75,
+    className:
+      "bg-green-100 hover:shadow-lg transition duration-300 ease-in-out",
+  },
+  {
+    icon: FaDollarSign,
+    status: "Purchase",
+    itemsCount: 800,
+    percentage: 60,
+    className:
+      "bg-blue-100 hover:shadow-lg transition duration-300 ease-in-out",
+  },
+  {
+    icon: FaSync,
+    status: "Returns",
+    itemsCount: 150,
+    percentage: 50,
+    className:
+      "bg-yellow-100 hover:shadow-lg transition duration-300 ease-in-out",
+  },
+  {
+    icon: FaClock,
+    status: "Average Sales Time",
+    itemsCount: 30,
+    percentage: 40,
+    className: "bg-red-100 hover:shadow-lg transition duration-300 ease-in-out",
   },
 ];

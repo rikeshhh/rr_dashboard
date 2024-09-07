@@ -18,7 +18,7 @@ const TableHead: React.FC<TableHeadProps> = ({ headers }) => {
               "text-gray-500 uppercase tracking-wider",
               "border-b border-gray-200",
               "sticky top-0",
-              "bg-gray-100"
+              "bg-blue-100"
             )}
           >
             {header}
