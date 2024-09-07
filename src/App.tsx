@@ -7,7 +7,7 @@ function App() {
   return (
     <section className="dashboard flex h-screen">
       <SideHeader />
-      <div className="w-full flex flex-col container p-4">
+      <div className="w-full flex flex-col container p-4 bg-white">
         <TopHeader />
         <Outlet />
       </div>

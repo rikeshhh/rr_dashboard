@@ -9,10 +9,10 @@ export const SideHeader = () => {
   const location = useLocation(); // Get current route
 
   return (
-    <section className="relative flex h-screen">
+    <section className="side-header relative flex h-screen ">
       <div
         className={clsx(
-          "border bg-gray-200 transition-all duration-300 flex flex-col",
+          "border bg-gray-100 shadow-lg rounded-lg transition-all duration-300 flex flex-col",
           isExpanded ? "w-auto" : "w-56"
         )}
       >
@@ -28,7 +28,7 @@ export const SideHeader = () => {
                   "flex items-center space-x-2 last:border-none border-b border-gray-300",
                   location.pathName === item.route
                     ? "bg-gray-400 text-white"
-                    : "hover:bg-gray-300 active:bg-gray-500",
+                    : "hover:bg-gray-300 active:bg-gray-500 rounded-sm",
                   isExpanded && "text-center"
                 )}
               >
