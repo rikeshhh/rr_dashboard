@@ -10,10 +10,10 @@ export const SideHeader = () => {
   const location = useLocation(); // Get current route
 
   return (
-    <section className="side-header relative flex h-calc(100vh-20vh)">
+    <section className="side-header relative flex ">
       <div
         className={clsx(
-          "border bg-white shadow-lg rounded-lg transition-all duration-300 flex flex-col",
+          "border bg-white shadow-lg rounded-lg transition-all duration-300 flex flex-col ",
           isExpanded ? "w-auto" : "w-56"
         )}
       >

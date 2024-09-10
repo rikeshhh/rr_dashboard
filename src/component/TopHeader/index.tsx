@@ -24,7 +24,7 @@ export const TopHeader: React.FC = () => {
   ];
 
   return (
-    <header className="p-2 flex items-center justify-between text-gray-800 border-b-2 bg-white shadow-sm">
+    <header className="p-2 flex items-center justify-between text-gray-800 border-b-2 bg-white shadow-sm h-32">
       <div className="flex items-center space-x-4">
         <div className="relative">
           <button

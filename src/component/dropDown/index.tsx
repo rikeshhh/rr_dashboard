@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export interface DropdownItem {
   name: string;
   path: string;
+  icon: React.ReactNode; // Add an icon prop
 }
 
 interface DropdownMenuProps {
@@ -46,58 +47,28 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     };
   }, [isOpen, onClose]);
 
-  useEffect(() => {
-    const positionDropdown = () => {
-      if (dropdownRef.current) {
-        const rect = dropdownRef.current.getBoundingClientRect();
-        const spaceBelow = window.innerHeight - rect.bottom;
-        const spaceAbove = rect.top;
-        const spaceRight = window.innerWidth - rect.right;
-
-        if (spaceBelow < 0 && spaceAbove > Math.abs(spaceBelow)) {
-          dropdownRef.current.style.top = "auto";
-          dropdownRef.current.style.bottom = "100%";
-        } else {
-          dropdownRef.current.style.top = "100%";
-          dropdownRef.current.style.bottom = "auto";
-        }
-
-        if (spaceRight < 0) {
-          dropdownRef.current.style.right = "0";
-          dropdownRef.current.style.left = "auto";
-        } else {
-          dropdownRef.current.style.left = "0";
-          dropdownRef.current.style.right = "auto";
-        }
-      }
-    };
-
-    if (isOpen) {
-      positionDropdown();
-      window.addEventListener("resize", positionDropdown);
-    }
-
-    return () => {
-      window.removeEventListener("resize", positionDropdown);
-    };
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
     <div
       ref={dropdownRef}
-      className="absolute z-10 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden"
+      className="absolute z-10 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 transform transition-transform"
+      style={{
+        transform: isOpen ? "scaleY(1)" : "scaleY(0)",
+        transformOrigin: "top",
+        marginTop: "8px", // Adjust the position to make it lower
+      }}
     >
-      <ul>
+      <ul className="py-1">
         {items.map((item) => (
-          <li key={item.name}>
+          <li key={item.name} className="transition-transform hover:bg-blue-50">
             <Link
               to={item.path}
-              className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+              className="flex items-center px-4 py-2 text-gray-700 hover:text-blue-700 transition-colors duration-200"
               onClick={onClose}
             >
-              {item.name}
+              <span className="mr-3 text-blue-500">{item.icon}</span>
+              <span className="flex-1">{item.name}</span>
             </Link>
           </li>
         ))}

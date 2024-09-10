@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../component/button";
 import InputField from "../../component/input";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpSchema } from "../../schema";
 
 interface SignUpFormValues {
   name: string;
@@ -21,6 +23,7 @@ export const SignUp = () => {
       email: "",
       password: "",
     },
+    resolver: zodResolver(signUpSchema),
   });
 
   const onSubmit: SubmitHandler<SignUpFormValues> = (data) => {
@@ -31,51 +34,33 @@ export const SignUp = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-700">
-          Sign Up
-        </h2>
+        <h2 className="text-2xl font-bold text-center text-gray-700">Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <InputField
-              name="name"
-              control={control}
-              label="Name"
-              placeholder="Enter your name"
-              className="w-full"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-            )}
-          </div>
-          <div>
-            <InputField
-              name="email"
-              control={control}
-              label="Email"
-              placeholder="Enter your email"
-              className="w-full"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-          <div>
-            <InputField
-              name="password"
-              control={control}
-              label="Password"
-              placeholder="Enter your password"
-              className="w-full"
-              type="password"
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
+          <InputField<SignUpFormValues>
+            name="name"
+            control={control}
+            label="Name"
+            placeholder="Enter your name"
+            error={errors.name?.message}
+            className="w-full"
+          />
+          <InputField<SignUpFormValues>
+            name="email"
+            control={control}
+            label="Email"
+            placeholder="Enter your email"
+            error={errors.email?.message}
+            className="w-full"
+          />
+          <InputField<SignUpFormValues>
+            name="password"
+            control={control}
+            label="Password"
+            type="password"
+            placeholder="Enter your password"
+            error={errors.password?.message}
+            className="w-full"
+          />
           <Button
             type="submit"
             buttonColor="primary"
@@ -85,7 +70,6 @@ export const SignUp = () => {
             Sign Up
           </Button>
         </form>
-
         <div className="text-center">
           <p className="text-gray-600">
             Already have an account?{" "}

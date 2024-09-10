@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Ensure consistent width and height for SideHeader */
+.side-header {
+  width: 250px; /* Adjust this value as needed */
+  height: calc(
+    100vh - 180px
+  ); /* Adjust the value based on the TopHeader height */
+}

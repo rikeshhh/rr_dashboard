@@ -1,171 +1,135 @@
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { CustomerFormValues } from "../../component/type";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import InputField from "../../component/input";
 import { Button } from "../../component/button";
+import { TransactionFormValues } from "../../component/type";
+import { transactionSchema } from "../../schema";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 export const CustomerAddForm: React.FC = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<CustomerFormValues>({
+  } = useForm<TransactionFormValues>({
     defaultValues: {
       name: "",
-      email: "",
-      phone: "",
-      address: "",
-      city: "",
-      state: "",
-      zip: "",
-      cylinderType: "",
-      notes: "",
+      qty: 0,
+      amount: 0,
+      payment: "",
+      status: "Pending",
     },
+    resolver: zodResolver(transactionSchema),
   });
 
-  const onSubmit: SubmitHandler<CustomerFormValues> = (data) => {
-    // Handle form submission
+  const onSubmit: SubmitHandler<TransactionFormValues> = (data) => {
     console.log(data);
   };
 
   return (
-    <div className="max-w-full  p-6 shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-6">Add New Customer</h2>
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-8" onSubmit={handleSubmit(onSubmit)}>
-        {/* Name */}
+    <div className="max-w-full p-6 shadow-lg rounded-lg bg-white">
+      <h2 className="text-2xl font-bold mb-6">Add New Transaction</h2>
+      <form
+        className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <InputField
+              name="name"
+              control={control}
+              label="Name"
+              placeholder="Enter transaction name"
+              className="w-full"
+              error={errors.name} // Pass the error prop
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="qty"
+          control={control}
+          render={({ field }) => (
+            <InputField
+              name="qty"
+              control={control}
+              type="number"
+              label="Quantity"
+              placeholder="Enter quantity"
+              className="w-full"
+              error={errors.qty} // Pass the error prop
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="amount"
+          control={control}
+          render={({ field }) => (
+            <InputField
+              name="amount"
+              control={control}
+              type="number"
+              label="Amount"
+              placeholder="Enter amount"
+              className="w-full"
+              error={errors.amount} // Pass the error prop
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="payment"
+          control={control}
+          render={({ field }) => (
+            <InputField
+              name="payment"
+              control={control}
+              label="Payment Method"
+              placeholder="Enter payment method"
+              className="w-full"
+              error={errors.payment} // Pass the error prop
+              {...field}
+            />
+          )}
+        />
+
         <div className="flex flex-col">
-          <InputField
-            name="name"
+          <label htmlFor="status" className="mb-2 text-gray-700">Status</label>
+          <Controller
+            name="status"
             control={control}
-            label="Name"
-            placeholder="Enter customer's name"
-            className="w-full"
+            render={({ field }) => (
+              <select
+                id="status"
+                {...field}
+                className={`block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 ${errors.status ? 'border-red-500' : ''}`}
+              >
+                <option value="Pending">Pending</option>
+                <option value="Done">Done</option>
+              </select>
+            )}
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          {errors.status && (
+            <p className="text-red-500 text-sm mt-1">{errors.status.message}</p>
           )}
         </div>
 
-        {/* Email */}
-        <div className="flex flex-col">
-          <InputField
-            name="email"
-            control={control}
-            label="Email"
-            type="email"
-            placeholder="Enter customer's email"
-            className="w-full"
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/* Phone Number */}
-        <div className="flex flex-col">
-          <InputField
-            name="phone"
-            control={control}
-            label="Phone Number"
-            type="tel"
-            placeholder="Enter customer's phone number"
-            className="w-full"
-          />
-          {errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
-          )}
-        </div>
-
-        {/* Address */}
-        <div className="flex flex-col">
-          <InputField
-            name="address"
-            control={control}
-            label="Address"
-            placeholder="Enter customer's address"
-            className="w-full"
-          />
-          {errors.address && (
-            <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>
-          )}
-        </div>
-
-        {/* City */}
-        <div className="flex flex-col">
-          <InputField
-            name="city"
-            control={control}
-            label="City"
-            placeholder="Enter city"
-            className="w-full"
-          />
-          {errors.city && (
-            <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
-          )}
-        </div>
-
-        {/* State */}
-        <div className="flex flex-col">
-          <InputField
-            name="state"
-            control={control}
-            label="State"
-            placeholder="Enter state"
-            className="w-full"
-          />
-          {errors.state && (
-            <p className="text-red-500 text-sm mt-1">{errors.state.message}</p>
-          )}
-        </div>
-
-        {/* Zip Code */}
-        <div className="flex flex-col">
-          <InputField
-            name="zip"
-            control={control}
-            label="Zip Code"
-            placeholder="Enter zip code"
-            className="w-full"
-          />
-          {errors.zip && (
-            <p className="text-red-500 text-sm mt-1">{errors.zip.message}</p>
-          )}
-        </div>
-
-        {/* Preferred Cylinder Type */}
-        <div className="flex flex-col">
-          <InputField
-            name="cylinderType"
-            control={control}
-            label="Preferred Cylinder Type"
-            placeholder="Enter preferred cylinder type"
-            className="w-full"
-          />
-          {errors.cylinderType && (
-            <p className="text-red-500 text-sm mt-1">{errors.cylinderType.message}</p>
-          )}
-        </div>
-
-        {/* Notes */}
-        <div className="md:col-span-2 flex flex-col">
-          <InputField
-            name="notes"
-            control={control}
-            label="Notes"
-            placeholder="Any additional notes"
-            className="w-full"
-          />
-        </div>
-
-        {/* Submit Button */}
         <div className="md:col-span-2">
           <Button
             type="submit"
             buttonColor="primary"
             buttonSize="medium"
-            className=""
+            className="w-full"
           >
-            Add Customer
+            Add Transaction
           </Button>
         </div>
       </form>

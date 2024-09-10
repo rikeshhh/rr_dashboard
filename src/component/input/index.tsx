@@ -1,50 +1,50 @@
 import React from "react";
-import { useController, Control } from "react-hook-form";
-import { CustomerFormValues } from "../../component/type"; // Adjust import as needed
+import { Controller, Control, FieldError } from "react-hook-form";
 
-interface InputFieldProps {
-  name: keyof CustomerFormValues; // Ensure name matches the keys of your form values type
-  control: Control<CustomerFormValues>;
-  label?: string;
+interface InputFieldProps<T> {
+  name: string;
+  control: Control<T>;
+  label: string;
+  placeholder: string;
   type?: string;
-  placeholder?: string;
   className?: string;
+  error?: string; // Adjusted type for error messages
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+const InputField = <T extends object>({
   name,
   control,
   label,
-  type = "text",
   placeholder,
+  type = "text",
   className,
-}) => {
-  const {
-    field,
-    fieldState: { error },
-  } = useController({
-    name,
-    control,
-    defaultValue: "", // Ensure this aligns with the default form values
-  });
-
+  error
+}: InputFieldProps<T>) => {
   return (
-    <div className={`relative ${className}`}>
-      {label && (
-        <label htmlFor={name} className="block mb-1 text-sm font-medium">
-          {label}
-        </label>
-      )}
-      <input
-        id={name}
-        type={type}
-        placeholder={placeholder}
-        {...field}
-        className={`w-full px-4 py-2 border rounded-lg focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 ${
-          error ? "border-red-500" : ""
-        }`}
+    <div className={`flex flex-col ${className}`}>
+      <label htmlFor={name} className="mb-2 text-gray-700">
+        {label}
+      </label>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <>
+            <input
+              id={name}
+              type={type}
+              placeholder={placeholder}
+              {...field}
+              className={`block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 ${
+                error ? "border-red-500" : ""
+              }`}
+            />
+            {error && (
+              <p className="text-red-500 text-sm mt-1">{error}</p>
+            )}
+          </>
+        )}
       />
-      {error && <p className="text-red-500 text-xs mt-1">{error.message}</p>}
     </div>
   );
 };

@@ -63,3 +63,11 @@ export interface ReportItemsProps {
   className?: string; 
   progressColor?: string; 
 }
+// Example type definition
+export interface TransactionFormValues {
+  name: string;
+  qty: number;
+  amount: number;
+  payment: string;
+  status: "Pending" | "Done";
+}
