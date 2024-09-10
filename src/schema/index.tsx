@@ -21,5 +21,5 @@ export const transactionSchema = z.object({
   status: z.enum(
     ["Pending", "Done"],
     "Status must be either 'Pending' or 'Done'"
-  ), 
+  ),
 });

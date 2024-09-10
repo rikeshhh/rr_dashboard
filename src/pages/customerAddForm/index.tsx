@@ -6,7 +6,6 @@ import InputField from "../../component/input";
 import { Button } from "../../component/button";
 import { TransactionFormValues } from "../../component/type";
 import { transactionSchema } from "../../schema";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 export const CustomerAddForm: React.FC = () => {
   const {
@@ -35,74 +34,48 @@ export const CustomerAddForm: React.FC = () => {
         className="grid grid-cols-1 md:grid-cols-2 gap-8"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Controller
+        <InputField
           name="name"
           control={control}
-          render={({ field }) => (
-            <InputField
-              name="name"
-              control={control}
-              label="Name"
-              placeholder="Enter transaction name"
-              className="w-full"
-              error={errors.name} // Pass the error prop
-              {...field}
-            />
-          )}
+          label="Name"
+          placeholder="Enter transaction name"
+          className="w-full"
+          error={errors?.name?.message} // Extract and pass only the error message
         />
 
-        <Controller
+        <InputField
           name="qty"
           control={control}
-          render={({ field }) => (
-            <InputField
-              name="qty"
-              control={control}
-              type="number"
-              label="Quantity"
-              placeholder="Enter quantity"
-              className="w-full"
-              error={errors.qty} // Pass the error prop
-              {...field}
-            />
-          )}
+          type="number"
+          label="Quantity"
+          placeholder="Enter quantity"
+          className="w-full"
+          error={errors?.qty?.message} // Extract and pass only the error message
         />
 
-        <Controller
+        <InputField
           name="amount"
           control={control}
-          render={({ field }) => (
-            <InputField
-              name="amount"
-              control={control}
-              type="number"
-              label="Amount"
-              placeholder="Enter amount"
-              className="w-full"
-              error={errors.amount} // Pass the error prop
-              {...field}
-            />
-          )}
+          type="number"
+          label="Amount"
+          placeholder="Enter amount"
+          className="w-full"
+          error={errors?.amount?.message} // Extract and pass only the error message
         />
 
-        <Controller
+        <InputField
           name="payment"
           control={control}
-          render={({ field }) => (
-            <InputField
-              name="payment"
-              control={control}
-              label="Payment Method"
-              placeholder="Enter payment method"
-              className="w-full"
-              error={errors.payment} // Pass the error prop
-              {...field}
-            />
-          )}
+          label="Payment Method"
+          placeholder="Enter payment method"
+          className="w-full"
+          error={errors?.payment?.message} // Extract and pass only the error message
         />
 
         <div className="flex flex-col">
-          <label htmlFor="status" className="mb-2 text-gray-700">Status</label>
+          <label htmlFor="status" className="mb-2 text-gray-700">
+            Status
+          </label>
           <Controller
             name="status"
             control={control}
@@ -110,7 +83,7 @@ export const CustomerAddForm: React.FC = () => {
               <select
                 id="status"
                 {...field}
-                className={`block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 ${errors.status ? 'border-red-500' : ''}`}
+                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="Pending">Pending</option>
                 <option value="Done">Done</option>
@@ -118,7 +91,7 @@ export const CustomerAddForm: React.FC = () => {
             )}
           />
           {errors.status && (
-            <p className="text-red-500 text-sm mt-1">{errors.status.message}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.status.message}</p> // Extract and pass only the error message
           )}
         </div>
 
